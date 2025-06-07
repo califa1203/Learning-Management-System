@@ -18,7 +18,7 @@ export default function RegisterPage() {
     email: '',
     password: '',
     confirmPassword: '',
-    role: '' as 'student' | 'teacher' | 'parent' | ''
+    role: '' as 'student' | 'teacher' | 'parent' | 'admin' | ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -47,11 +47,17 @@ export default function RegisterPage() {
       return;
     }
 
+    if (!formData.role) {
+      setError('Please select a role');
+      setLoading(false);
+      return;
+    }
+
     try {
       const user = await authService.register({
         name: formData.name,
         email: formData.email,
-        role: formData.role
+        role: formData.role as 'student' | 'teacher' | 'parent' | 'admin'
       });
       
       if (user) {
@@ -203,7 +209,7 @@ export default function RegisterPage() {
               >
                 {loading ? (
                   <>
-                    <LoadingSpinner size="sm\" className="mr-2" />
+                    <LoadingSpinner size="sm" className="mr-2" />
                     Creating account...
                   </>
                 ) : (

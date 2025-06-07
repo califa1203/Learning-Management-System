@@ -23,6 +23,13 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 
+interface MenuItem {
+  title: string;
+  href: string;
+  icon: any;
+  badge?: string;
+}
+
 interface SidebarProps {
   role: 'student' | 'teacher' | 'parent' | 'admin';
 }
